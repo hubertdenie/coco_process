@@ -1,0 +1,428 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Coco &amp; Cici Process Atlas</title>
+<link rel="icon" href="assets/logo.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lora:wght@500;600&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --plum:#6F353F; --plum-dk:#4E2129; --plum-ink:#3B1B21;
+  --sky:#C6D6F0; --sky-bg:#EEF3FB;
+  --bg:#FBF9F7; --card:#FFFFFF; --ink:#2A2325; --ink-2:#4F4649; --muted:#6B6265;
+  --line:#E6E1DD; --line-2:#EFEBE8; --off:#F2EFEC; --off-ink:#958C8F;
+  --serif:'Lora',Georgia,serif; --sans:'Work Sans',system-ui,-apple-system,Segoe UI,sans-serif;
+}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:15px;line-height:1.5}
+a{color:var(--plum)} a:hover{color:var(--plum-dk)}
+button{font:inherit;cursor:pointer}
+h1,h2,h3{font-family:var(--serif);font-weight:600;margin:0;line-height:1.2}
+:focus-visible{outline:3px solid var(--sky);outline-offset:2px}
+
+/* header */
+.top{background:var(--card);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:5}
+.top-in{max-width:1320px;margin:0 auto;padding:12px 24px;display:flex;flex-wrap:wrap;align-items:center;gap:12px 24px}
+.brand{display:flex;align-items:center;gap:14px;text-decoration:none;min-height:44px}
+.brand img{height:24px;width:auto;display:block}
+.brand .sep{width:1px;height:24px;background:var(--line)}
+.brand .name{font-family:var(--serif);font-size:19px;font-weight:600;color:var(--plum)}
+.tabs{display:flex;gap:4px;flex-wrap:wrap}
+.tab{border:0;border-radius:6px;padding:0 14px;min-height:40px;font-size:14px;font-weight:500;background:transparent;color:var(--plum);text-decoration:none;display:inline-flex;align-items:center}
+.tab.on{background:var(--plum);color:#fff}
+.search{flex:1 1 200px;display:flex;align-items:center;gap:8px;border:1px solid var(--line);border-radius:8px;padding:0 12px;min-height:40px;background:var(--bg);position:relative}
+.search input{border:0;background:transparent;flex:1;min-width:0;font:inherit;font-size:14px;color:var(--ink);outline:none}
+.results{position:absolute;left:0;right:0;top:44px;background:var(--card);border:1px solid var(--line);border-radius:8px;box-shadow:0 10px 30px rgba(42,35,37,.12);padding:6px;display:none;max-height:360px;overflow:auto}
+.results.show{display:block}
+.results a{display:block;padding:8px 10px;border-radius:6px;text-decoration:none;color:var(--ink);font-size:14px}
+.results a:hover,.results a:focus{background:var(--sky-bg)}
+.results .none{padding:8px 10px;color:var(--muted);font-size:14px}
+.ver{font-size:12px;color:var(--muted);border:1px solid var(--line);border-radius:999px;padding:4px 10px}
+
+/* layout */
+.wrap{max-width:1320px;margin:0 auto;padding:24px;display:flex;flex-wrap:wrap;gap:28px;align-items:flex-start}
+.side{flex:1 1 250px;max-width:300px;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px 10px;display:flex;flex-direction:column;gap:2px}
+.side .lbl{font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);padding:0 10px 8px}
+.ti{display:block;border-radius:6px;padding:6px 10px;font-size:14px;min-height:34px;text-decoration:none}
+a.ti{color:var(--plum);font-weight:500}
+a.ti.on{background:var(--sky-bg);font-weight:600}
+span.ti{color:var(--off-ink)}
+.side hr{border:0;border-top:1px solid var(--line-2);margin:10px 0 6px;width:100%}
+.legend{display:flex;flex-direction:column;gap:6px;padding:14px 10px 4px;font-size:12px;color:var(--muted)}
+.legend span{display:flex;align-items:center;gap:8px}
+.sw{width:10px;height:10px;border-radius:2px;display:inline-block}
+main{flex:999 1 640px;min-width:0;display:flex;flex-direction:column;gap:22px}
+
+/* type */
+.crumbs{display:flex;flex-wrap:wrap;align-items:center;gap:6px;font-size:13px}
+.crumbs a{text-underline-offset:3px}
+.crumbs .sl{color:var(--off-ink)}
+.crumbs .cur{color:var(--muted)}
+.eyebrow{font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--plum)}
+.head{display:flex;flex-direction:column;gap:8px;max-width:800px}
+.head h1{font-size:32px}
+.lead{margin:0;color:var(--ink-2);font-size:16px}
+.meta{display:flex;flex-wrap:wrap;gap:8px 22px;font-size:13px;color:var(--ink-2);background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px 16px}
+.meta b{font-weight:600}
+.note{font-size:13px;color:var(--muted);margin:0}
+
+/* cards */
+.grid{display:grid;gap:14px}
+.g-l1{grid-template-columns:repeat(auto-fill,minmax(250px,1fr))}
+.g-l2{grid-template-columns:repeat(auto-fill,minmax(175px,1fr))}
+.card{border-radius:12px;padding:18px 20px;display:flex;flex-direction:column;gap:10px;text-decoration:none}
+.card .top-row{display:flex;justify-content:space-between;gap:8px;font-size:12px;font-weight:600;letter-spacing:.06em}
+.card .t{font-family:var(--serif);font-size:21px;font-weight:600;line-height:1.25}
+.card .d{font-size:14px;flex:1}
+.card .f{font-size:13px;padding-top:10px;display:flex;justify-content:space-between;gap:8px}
+.pill{border-radius:999px;padding:2px 10px;font-size:12px;letter-spacing:0;font-weight:500;align-self:flex-start}
+.card.live{background:var(--plum);color:#fff;box-shadow:0 6px 18px rgba(111,53,63,.22);transition:transform .15s,box-shadow .15s}
+.card.live:hover{transform:translateY(-2px);box-shadow:0 10px 24px rgba(111,53,63,.28);color:#fff}
+.card.live .d{color:#F3E6E8}
+.card.live .f{border-top:1px solid rgba(255,255,255,.3)}
+.card.live .pill{background:var(--sky);color:var(--plum-ink)}
+.card.off{background:var(--off);color:var(--off-ink);border:1px solid var(--line)}
+.card.off .f{border-top:1px solid var(--line)}
+.card.off .pill{border:1px solid #DAD3CF}
+.min-l1{min-height:200px}.min-l2{min-height:215px}
+
+.panel{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:18px 20px;display:flex;flex-direction:column;gap:12px}
+.panel h2{font-size:20px}
+.panel.sky{background:var(--sky-bg);border-color:var(--sky)}
+.ph{display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px;align-items:baseline}
+.ph span{font-size:13px;color:var(--muted)}
+.two{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:14px}
+.facts{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:12px}
+.fact{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px 16px}
+.fact .k{font-size:12px;color:var(--muted)}
+.fact .v{font-weight:500}
+.keys{display:grid;grid-template-columns:52px 1fr;gap:8px 12px;font-size:14px;align-items:baseline}
+.keys b{color:var(--plum);font-weight:600}
+ol.plain{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:6px;font-size:14px}
+
+/* tables */
+.tbl{background:var(--card);border:1px solid var(--line);border-radius:12px;overflow-x:auto}
+.tbl .in{min-width:700px}
+.row{display:grid;gap:12px;align-items:center;padding:13px 18px;font-size:14px;text-decoration:none}
+.row.h{font-size:12px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);border-bottom:1px solid var(--line);padding:10px 18px}
+.c-l3{grid-template-columns:70px minmax(0,1fr) 110px 110px 170px}
+a.row.live{background:var(--plum);color:#fff}
+a.row.live:hover{background:var(--plum-dk);color:#fff}
+.row.off{background:#F7F5F3;color:var(--off-ink);border-bottom:1px solid var(--line-2)}
+.row .nm{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.tag{font-size:11px;border-radius:999px;padding:1px 8px}
+a.row.live .tag{background:var(--sky);color:var(--plum-ink)}
+.row.off .tag{border:1px solid #DAD3CF}
+.grp-h{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:8px;padding:12px 18px;background:#F7F5F3;border-bottom:1px solid var(--line)}
+.grp-h h3{font-size:17px}
+.btn{display:inline-flex;align-items:center;border-radius:999px;padding:0 14px;min-height:32px;font-size:13px;font-weight:500;text-decoration:none}
+.btn.live{background:var(--plum);color:#fff}
+.btn.live:hover{background:var(--plum-dk);color:#fff}
+.btn.off{color:var(--off-ink);border:1px solid #DAD3CF}
+.c-raci{grid-template-columns:minmax(0,1fr) 90px 100px 130px 180px;padding:9px 18px;border-top:1px solid var(--line-2)}
+.chip{border-radius:6px;padding:2px 8px;font-size:13px;font-weight:600;display:inline-block}
+.ch-cath{background:var(--plum);color:#fff}
+.ch-kiki{background:var(--sky);color:var(--plum-ink)}
+.ch-coord{background:#fff;color:var(--plum);border:1px solid var(--plum)}
+.ch-none{color:var(--off-ink);border:1px solid var(--line)}
+.c-mx{grid-template-columns:minmax(0,1fr) repeat(5,92px);padding:8px 0;gap:8px;border-bottom:1px solid var(--off)}
+.c-mx.h{border-bottom:1px solid var(--line);text-transform:none;letter-spacing:0;padding:8px 0}
+.c-mx .ctr{text-align:center;justify-self:center}
+.lt{min-width:28px;text-align:center;border-radius:6px;padding:2px 8px;font-size:13px;font-weight:600}
+.lt-R{background:var(--plum);color:#fff}.lt-A{background:var(--sky);color:var(--plum-ink)}
+.lt-C{background:#fff;color:var(--plum);border:1px solid var(--plum)}.lt-I{background:var(--off);color:var(--ink-2)}.lt-{color:#C9C1C3}
+
+/* flow */
+.flow-box{overflow-x:auto}
+.flow{min-width:940px;display:grid;grid-template-columns:130px repeat(7,minmax(0,1fr));grid-template-rows:108px 124px 108px;column-gap:10px}
+.lane{background:#F7F5F3;display:flex;align-items:center;padding:0 12px;font-size:13px;font-weight:600;color:var(--ink-2);border-bottom:1px solid var(--line)}
+.rule{border-bottom:1px solid var(--line);display:flex;align-items:center}
+.rule i{display:block;height:2px;width:100%;background:#D8CFCB}
+.node{align-self:center;z-index:1;border-radius:10px;padding:10px 12px;min-height:80px;font-size:13px;text-decoration:none;display:block}
+a.node{background:var(--plum);color:#fff;box-shadow:0 4px 12px rgba(111,53,63,.2)}
+a.node:hover{background:var(--plum-dk);color:#fff}
+.node.ext{background:var(--off);color:var(--off-ink);border:1px dashed #D8CFCB}
+.ev{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;z-index:1}
+.ev .s{width:30px;height:30px;border:2px solid var(--off-ink);border-radius:50%;background:#fff}
+.ev .e{width:30px;height:30px;border:4px solid var(--off-ink);border-radius:50%;background:#fff}
+.ev .g{width:30px;height:30px;border:2px solid var(--off-ink);background:#fff;transform:rotate(45deg)}
+.ev span:last-child{font-size:12px;color:var(--off-ink);background:#fff;padding:0 4px;text-align:center}
+
+/* steps */
+.pills{display:flex;flex-wrap:wrap;gap:8px}
+.sp{border-radius:999px;padding:0 14px;min-height:36px;font-size:13px;display:inline-flex;align-items:center;text-decoration:none;background:#fff;color:var(--plum);border:1px solid var(--line)}
+.sp.on{background:var(--plum);color:#fff;border-color:var(--plum)}
+ol.steps{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:12px;counter-reset:s}
+ol.steps li{display:flex;gap:14px;align-items:flex-start;counter-increment:s}
+ol.steps li::before{content:counter(s);flex:none;width:26px;height:26px;border-radius:50%;background:var(--sky-bg);border:1px solid var(--sky);color:var(--plum);font-size:13px;font-weight:600;display:flex;align-items:center;justify-content:center}
+ol.steps li span{padding-top:2px}
+.boxes{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:12px}
+.bx{background:#fff;border:1px solid var(--line);border-radius:10px;padding:14px 16px}
+.bx .k{font-size:12px;font-weight:600;color:var(--plum);text-transform:uppercase;letter-spacing:.06em}
+.bx.done{border-color:var(--plum)} .bx.why{background:var(--sky-bg);border-color:var(--sky)}
+.nav{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px}
+.nb{display:inline-flex;align-items:center;border-radius:8px;padding:0 16px;min-height:44px;font-weight:500;text-decoration:none;border:1px solid var(--plum);color:var(--plum);background:#fff}
+.nb.pri{background:var(--plum);color:#fff}
+.nb.dis{border-color:var(--line);color:var(--off-ink);pointer-events:none}
+.gov{background:#fff;border:1px solid var(--line);border-radius:12px;padding:14px 18px;display:flex;flex-wrap:wrap;gap:10px 22px;align-items:center;font-size:13px;color:var(--ink-2)}
+.gov b{font-weight:600}
+.gov a{margin-left:auto}
+.foot{margin:8px 0 0;font-size:12px;color:var(--muted);border-top:1px solid var(--line);padding-top:14px}
+@media (max-width:700px){.wrap{padding:16px}.head h1{font-size:26px}.side{max-width:none}.top-in{padding:10px 16px}}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="top-in">
+    <a class="brand" href="#/" aria-label="Coco &amp; Cici Process Atlas, home">
+      <img src="assets/logo.svg" alt="Coco &amp; Cici">
+      <span class="sep" aria-hidden="true"></span>
+      <span class="name">Process Atlas</span>
+    </a>
+    <nav class="tabs" aria-label="Sections">
+      <a class="tab" id="tab-map" href="#/">Process map</a>
+      <a class="tab" id="tab-raci" href="#/raci">Who does what</a>
+    </nav>
+    <div class="search" role="search">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#6B6265" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+      <label for="q" style="position:absolute;left:-9999px">Search the atlas</label>
+      <input id="q" type="search" placeholder="Search processes, steps, tasks" autocomplete="off">
+      <div class="results" id="results" role="listbox"></div>
+    </div>
+    <span class="ver">Version 0.9 · October 2026</span>
+  </div>
+</header>
+<div class="wrap">
+  <nav class="side" id="side" aria-label="Process tree"></nav>
+  <main id="main"></main>
+</div>
+<script>
+(function(){
+'use strict';
+/* ---------- content ---------- */
+var L1 = [
+  {n:'1', name:'Insight to launch', desc:'From a customer or market insight to a product that is designed, tested, certified and frozen for ordering.', owner:'Cath'},
+  {n:'2', name:'Demand to plan', desc:'From demand signals and the promotion calendar to one agreed buy plan, set in the monthly S&OP.', owner:'To be agreed by the MT'},
+  {n:'3', name:'Source to stock', desc:'From the agreed buy plan to stock that is checked in and sellable.', owner:'Cath, moving to the production coordinator', live:true, href:'#/source-to-stock'},
+  {n:'4', name:'Reach to order', desc:'From campaign to customer order, with every campaign checked against stock.', owner:'Dion'},
+  {n:'5', name:'Order to delight', desc:'From customer order to delivery at home, including returns, across webshop, bol.com and retail.', owner:'Marije'},
+  {n:'6', name:'Customer to loyalty', desc:'Reviews, repeat purchase and complaints, routed back to the product and the factories.', owner:'Marije'},
+  {n:'7', name:'Plan to cash', desc:'Budget, supplier deposits and payments, cash tied up in fabric and stock.', owner:'Magali'},
+  {n:'8', name:'Foundations', desc:'Decision rights, the monthly rhythm, people, data and tools that every stream runs on.', owner:'The MT'}
+];
+var L2 = [
+  {code:'3.1', name:'Order', desc:'Price, deposit and MOQ, quantities and sizes, order form, contract, supplier confirmation.', gate:'Gate 1', tasks:'6 processes', live:true, href:'#/order'},
+  {code:'3.2', name:'Trims and packaging', desc:'Labels, GS1 barcodes, packaging, accessories, printed matter.', gate:'No gate', tasks:'6 processes'},
+  {code:'3.3', name:'Production', desc:'Weekly factory check, SGS test, bulk approval, certificates, pre-shipment check.', gate:'Gates 2 and 3', tasks:'6 processes'},
+  {code:'3.4', name:'Logistics', desc:'Freight quotes and booking, documents and HS codes, cut-off check.', gate:'No gate', tasks:'3 processes'},
+  {code:'3.5', name:'Stock and signals', desc:'Fabric and label stock, forecast update, Picqer reorder alarm, complaints per order.', gate:'No gate', tasks:'4 processes'}
+];
+var L3 = [
+  {code:'3.1.1', name:'Negotiate and confirm the price (USD or RMB)', r:'Cath', a:'Cath', when:'Per order, first', tag:'Not mapped yet'},
+  {code:'3.1.2', name:'Negotiate deposit, MOQ and stock at the factory', r:'Cath', a:'Cath', when:'Per order', tag:'Not mapped yet'},
+  {code:'3.1.3', name:'Set and send quantities and sizes', r:'Cath', a:'Cath', when:'Per order, after price', tag:'Not mapped yet'},
+  {code:'3.1.4', name:'Fill in the order form (standard format)', r:'Kiki', a:'Cath', when:'Per order', tag:'Not mapped yet'},
+  {code:'3.1.5', name:'Sign the contract', r:'Cath', a:'Cath', when:'Before production', tag:'Gate 1'},
+  {code:'3.1.6', name:'Confirm the purchase order', r:'Coordinator', a:'Cath', when:'After Gate 1', tag:'Mapped to L4', live:true, href:'#/confirm-po'}
+];
+var ACTS = [
+  {code:'3.1.6.1', short:'Send the PO', title:'Send the PO and ask for written confirmation', who:'Production coordinator', when:'Same day the contract is signed', time:'About 10 minutes', tools:'Supplier chat or email · order tracker',
+   steps:['Check that the contract is signed by both sides (Gate 1). No signed contract, no next step.','Attach the signed PO as a PDF, with the contract.','Send the standard message "PO confirmation request" in English.','Ask the supplier to confirm every line: colour code, size, quantity, unit price and ship date.','In the order tracker, set the status to "Sent, awaiting confirmation" and the chase date to three working days from today.'],
+   done:'The message is sent and the tracker shows the status and chase date.', rules:'No signed contract, no step. A PO only binds once the supplier has accepted it in writing.', why:'A written confirmation per line is the last moment a missing size is cheap to fix.', mistake:'Accepting "OK, confirmed" in a chat without the list of lines.', raci:['R','A','I','','']},
+  {code:'3.1.6.2', short:'Chase', title:'Chase an unanswered PO', who:'Production coordinator', when:'No confirmation three working days after sending', time:'About 5 minutes', tools:'Same supplier thread · order tracker',
+   steps:['Send the first reminder in the same thread, using the standard message.','No answer two working days later: send a second reminder and leave a voice message for the contact (Seven at JIHUA, Gary at MarchOn).','Still no answer: escalate to Cath with the thread link and the date the goods are needed.','Log the date of every reminder in the tracker.'],
+   done:'The confirmation is in, or Cath has the escalation.', rules:'Chase after 3 working days. Escalate after two unanswered reminders. Follow up before a date is missed, not after.', why:'Every silent day here is a day lost on a three-month sea lead time.', mistake:'Starting a new thread, so the history is lost.', raci:['R','A','C','','']},
+  {code:'3.1.6.3', short:'Check lines', title:'Check the confirmation line by line', who:'Production coordinator', when:'Confirmation received', time:'About 20 minutes per PO', tools:'PO PDF · NOS size list · order tracker',
+   steps:['Put the PO and the supplier confirmation side by side.','Tick every line: colour code, size, quantity, unit price and ship date.','Count the sizes per colour against the NOS size list. Every NOS size must be there.','Check colour names against colour codes. Taupe and sand have been mixed up before.','Any difference, however small: go to step 4.'],
+   done:'Every line is marked "match" or "flag" in the tracker.', rules:'Zero tolerance for missing sizes.', why:'In 2026 five NOS sizes were not produced: about 6.7% of revenue, €76,493 year to date.', mistake:'Checking totals instead of lines.', raci:['R','A','','C','']},
+  {code:'3.1.6.4', short:'Fix mismatch', title:'Fix the mismatch', who:'Production coordinator; Cath decides when the supplier cannot fix it', when:'Any line flagged in step 3', time:'About 15 minutes plus waiting', tools:'Tracker exceptions tab · supplier thread',
+   steps:['Log the difference in the exceptions tab: which line, what is wrong, what it affects.','Ask the supplier to correct and re-confirm within two working days.','Supplier cannot fix it: send Cath three options: accept, swap colour or size, or re-order.','Log Cath’s decision with the date and the reason.','Check the corrected lines again (step 3).'],
+   done:'Every flag is closed with a logged decision.', rules:'Only Cath approves a change to colour, size or quantity. The supplier re-confirms within 2 working days.', why:'Each logged exception is checked against the step it broke. That is how this instruction stays current.', mistake:'Agreeing a fix by phone without logging it.', raci:['R','A','C','I','']},
+  {code:'3.1.6.5', short:'Hand over', title:'Record the dates and hand over', who:'Production coordinator', when:'All lines match', time:'About 10 minutes', tools:'Order tracker · team chat',
+   steps:['Enter the confirmed ship date for every line in the tracker, and the number of days from PO to confirmation.','Set the status to "Confirmed". From now on the specification is frozen.','Post in the team chat: PO number, confirmed dates, any accepted changes.','Tag Isabel for the stock plan and Kiki for the warehouse forecast.','The order moves to 3.3 Production and the weekly factory check.'],
+   done:'The status is Confirmed and Isabel and Kiki have the dates.', rules:'After confirmation, any change to labels, packaging or sizes is a change request to Cath, logged with its cost and delay.', why:'The S&OP plans stock and pre-order dates on these confirmed dates, not on the PO.', mistake:'Updating the tracker but not telling Isabel.', raci:['R','I','','I','I']}
+];
+var RACI = [
+  {phase:'Development', where:'1 Insight to launch', rows:[
+    ['Design new collections','F','F','Per collection'],['Develop fabrics (100% modal, silk and TENCEL, bedding blends)','F','F','Ongoing'],['Make samples and choose the fabric','F','F','Per product'],['Set sizes (fittings)','F','F','Per collection'],['Choose colours, approve lab dips','F','F','2 to 3 weeks per round'],['Prepare colours: all of next year ready in Q4','F','F','Yearly, Q4'],['Test fabric on the roll (SGS, Lenzing)','K','F','With new fabric'],['Final sample rounds, approve the model','F','F','Per product']]},
+  {phase:'Order', where:'3.1 Order', href:'#/order', rows:[
+    ['Negotiate and confirm the price (USD or RMB)','F','F','Per order, first'],['Negotiate deposit, MOQ, stock at the factory','F','F','Per order'],['Set and send quantities and sizes','F','F','Per order, after price'],['Fill in the order form (standard format)','K','F','Per order'],['Sign the contract (Gate 1)','F','F','Before production'],['Confirm the purchase order line by line','C','F','After Gate 1']]},
+  {phase:'Trims and packaging', where:'3.2 Trims and packaging', rows:[
+    ['Design logo and care labels','F','F','On change'],['Order and deliver labels','K','F','Right after the order'],['Create and deliver barcodes (GS1 SOP)','K','-','After order and quantities'],['Deliver packaging design, approve the proof','K','F','Right after the order'],['Chase accessories (buttons, zips, tape)','K','F','Right after the order'],['Bulk print: booklets, hangtags, strings (max twice a year)','K','F','Twice a year']]},
+  {phase:'Production', where:'3.3 Production', rows:[
+    ['Weekly factory check (send the checklist)','K','-','Weekly'],['Arrange the SGS test and sign-off','K','F','Per order'],['Ask for bulk approval before start (Gate 2)','K','F','Before bulk'],['Request certificates (factory to Lenzing)','K','-','Per order'],['Lenzing certificate to marketing licence','F','F','Per collection'],['Final check of barcodes, hangtags, box info (Gate 3)','K','F','Before shipping']]},
+  {phase:'Logistics', where:'3.4 Logistics', rows:[
+    ['Freight quotes (2 to 3) and booking','K','F','Per order, Cath above a threshold'],['Check volume, consignee, HS codes, documents','K','-','Per order'],['Daily check until the cut-off is made','K','-','Daily in the last week']]},
+  {phase:'Stock', where:'3.5 Stock and signals', rows:[
+    ['Track dyed and tested fabric and label stock','K','F','Weekly'],['Update the forecast, shortages and surpluses','K','F','Monthly'],['Set and monitor the Picqer reorder alarm','K','-','Ongoing'],['Track and act on complaints and signals per order','K','F','Ongoing']]}
+];
+
+/* ---------- helpers ---------- */
+function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
+var WHO = {F:['Cath','ch-cath'], K:['Kiki','ch-kiki'], C:['Coordinator','ch-coord'], '-':['None','ch-none']};
+function chip(k){var w=WHO[k]||WHO['-'];return '<span class="chip '+w[1]+'">'+w[0]+'</span>';}
+function nextR(k){return k==='K'||k==='C' ? chip('C') : chip(k==='-'?'-':k);}
+
+/* ---------- views ---------- */
+var V = {};
+V.home = function(){
+  var cards = L1.map(function(a){
+    if(a.live) return '<a class="card live min-l1" href="'+a.href+'"><span class="top-row"><span>STREAM '+a.n+'</span><span class="pill">Mapped to L4</span></span><span class="t">'+esc(a.name)+'</span><span class="d">'+esc(a.desc)+'</span><span class="f"><span>Owner: '+esc(a.owner)+'</span><span aria-hidden="true">→</span></span></a>';
+    return '<div class="card off min-l1"><span class="top-row"><span>STREAM '+a.n+'</span><span class="pill">Not mapped yet</span></span><span class="t">'+esc(a.name)+'</span><span class="d">'+esc(a.desc)+'</span><span class="f"><span>Owner: '+esc(a.owner)+'</span></span></div>';
+  }).join('');
+  return '<div class="head"><span class="eyebrow">Level 1 · Value streams</span><h1>How Coco &amp; Cici works</h1><p class="lead">Eight value streams, each running from a clear start to a clear end, each with one owner. Burgundy means mapped: click to open it. Grey streams are listed and get mapped with their owner when someone new joins.</p></div>'+
+  '<div class="grid g-l1">'+cards+'</div>'+
+  '<div class="two"><div class="panel"><h2>How to read this atlas</h2><div class="keys"><b>L1</b><span>Value stream: an end-to-end flow with one owner</span><b>L2</b><span>Process group: the phases inside a stream</span><b>L3</b><span>Process: one job with a start, an end and an owner, drawn as a flow</span><b>L4</b><span>Activity: the step-by-step work instruction</span><b>R · A</b><span>Responsible does it · Accountable approves it</span><b>Gate</b><span>A hard stop: the order cannot move on until it is ticked</span></div></div>'+
+  '<div class="panel sky"><h2>New production coordinator? Start here</h2><ol class="plain"><li>Read Source to stock end to end (20 minutes).</li><li>Open <a href="#/raci">Who does what</a>: every task marked for the coordinator from 2027 is yours.</li><li>Run your first process with Cath beside you: <a href="#/confirm-po"><b>3.1.6 Confirm the purchase order</b></a>.</li><li>Found a step that was unclear? Suggest a change. That is how the atlas stays current.</li></ol></div></div>';
+};
+V.s2s = function(){
+  var cards = L2.map(function(p){
+    if(p.live) return '<a class="card live min-l2" href="'+p.href+'"><span class="top-row"><span>L2 · '+p.code+'</span></span><span class="t">'+esc(p.name)+'</span><span class="d">'+esc(p.desc)+'</span><span class="pill">'+p.gate+'</span><span class="f"><span>'+p.tasks+'</span><span aria-hidden="true">→</span></span></a>';
+    return '<div class="card off min-l2"><span class="top-row"><span>L2 · '+p.code+'</span></span><span class="t">'+esc(p.name)+'</span><span class="d">'+esc(p.desc)+'</span><span class="pill">'+p.gate+'</span><span class="f"><span>'+p.tasks+' · not mapped yet</span></span></div>';
+  }).join('');
+  return '<div class="head"><span class="eyebrow">Level 1 · Stream 3</span><h1>Source to stock</h1><p class="lead">From the agreed buy plan to stock that is checked in and sellable. Every order passes the same five phases and three hard gates.</p></div>'+
+  '<div class="meta"><span><b>Owner</b> Cath, moving to the production coordinator in Q1 2027</span><span><b>Starts with</b> the buy plan from Demand to plan</span><span><b>Ends with</b> sellable stock for Order to delight</span><span><b>Orders a year</b> about 11</span></div>'+
+  '<div class="grid g-l2">'+cards+'</div>'+
+  '<div class="panel"><h2>The three gates</h2><div class="keys"><b>Gate 1</b><span>No production without a signed contract. Order: price confirmed, then quantities, then contract.</span><b>Gate 2</b><span>No bulk without founder approval of dyed fabric or lab dip, sample, embroidery or packaging proof, and tape colour.</span><b>Gate 3</b><span>Before shipping: SGS approved, barcodes and hangtags correct, box information warehouse-proof, consignee, HS codes, invoice and packing list with the forwarder.</span></div></div>';
+};
+V.order = function(){
+  var rows = L3.map(function(r){
+    var inner='<span><b>'+r.code+'</b></span><span class="nm"><span>'+esc(r.name)+'</span><span class="tag">'+r.tag+'</span></span><span>'+r.r+'</span><span>'+r.a+'</span><span>'+r.when+(r.live?' →':'')+'</span>';
+    return r.live ? '<a class="row c-l3 live" href="'+r.href+'">'+inner+'</a>' : '<div class="row c-l3 off">'+inner+'</div>';
+  }).join('');
+  return '<div class="head"><span class="eyebrow">Level 2 · 3.1</span><h1>Order</h1><p class="lead">From price to a confirmed order. The sequence is fixed: price confirmed, then quantities, then contract signed. Then the supplier confirms every line before the factory starts.</p></div>'+
+  '<div class="tbl"><div class="in"><div class="row h c-l3"><span>L3</span><span>Process</span><span>Does it</span><span>Approves</span><span>When</span></div>'+rows+'</div></div>'+
+  '<div class="panel sky"><span class="eyebrow">Why 3.1.6 exists</span><p style="margin:0;font-size:14px">The task split used to end at contract signing. A PO only binds once the supplier accepts it, and the confirmation is the last cheap moment to catch a missing size. In 2026 five NOS sizes were not produced: about 6.7% of revenue, €76,493 year to date.</p></div>';
+};
+V.po = function(){
+  var mx = ACTS.map(function(x,i){
+    return '<div class="row c-mx"><a href="#/step/'+(i+1)+'">'+(i+1)+' · '+esc(x.short)+'</a>'+x.raci.map(function(c){return '<span class="ctr lt lt-'+c+'">'+(c||'·')+'</span>';}).join('')+'</div>';
+  }).join('');
+  return '<article style="display:flex;flex-direction:column;gap:22px">'+
+  '<div class="head"><span class="eyebrow">Level 3 · 3.1.6 · Process</span><h1>Confirm the purchase order</h1><p class="lead">Get a written, line-by-line confirmation from the supplier for every colour, size and quantity, and fix any difference before production starts.</p></div>'+
+  '<div class="meta"><span><b>Owner</b> Production coordinator</span><span><b>Accountable</b> Cath</span><span><b>Version</b> 0.9</span><span><b>Review</b> monthly, in the S&amp;OP</span></div>'+
+  '<div class="facts"><div class="fact"><div class="k">Starts when</div><div class="v">Contract signed (Gate 1)</div></div><div class="fact"><div class="k">Ends when</div><div class="v">Every line confirmed, dates in the tracker</div></div><div class="fact"><div class="k">How often</div><div class="v">Every PO, about 11 a year</div></div><div class="fact"><div class="k">Measures</div><div class="v">Days from PO to confirmation (target ≤ 3) · NOS sizes missing (target 0)</div></div></div>'+
+  '<section class="panel"><div class="ph"><h2>Process flow</h2><span>Click a numbered step for its work instruction</span></div><div class="flow-box"><div class="flow">'+
+    '<div class="lane" style="grid-column:1;grid-row:1">Supplier</div><div class="lane" style="grid-column:1;grid-row:2">Production coordinator</div><div class="lane" style="grid-column:1;grid-row:3;border-bottom:0">Cath</div>'+
+    '<div class="rule" style="grid-column:2/9;grid-row:1"></div><div class="rule" style="grid-column:2/9;grid-row:2" aria-hidden="true"><i></i></div>'+
+    '<div class="ev" style="grid-column:2;grid-row:2"><span class="s" aria-hidden="true"></span><span>Contract signed (Gate 1)</span></div>'+
+    '<a class="node" style="grid-column:3;grid-row:2" href="#/step/1"><b>1</b> · Send the PO, ask for written confirmation</a>'+
+    '<div class="node ext" style="grid-column:4;grid-row:1">Confirms each line: colour, size, quantity, price, ship date</div>'+
+    '<a class="node" style="grid-column:4;grid-row:2" href="#/step/2"><b>2</b> · No reply in 3 working days: chase</a>'+
+    '<a class="node" style="grid-column:5;grid-row:2" href="#/step/3"><b>3</b> · Check the confirmation line by line</a>'+
+    '<div class="ev" style="grid-column:6;grid-row:2"><span class="g" aria-hidden="true"></span><span>All lines match?<br>yes → · no ↓</span></div>'+
+    '<a class="node" style="grid-column:6;grid-row:3" href="#/step/4"><b>4</b> · Fix the mismatch, Cath decides</a>'+
+    '<a class="node" style="grid-column:7;grid-row:2" href="#/step/5"><b>5</b> · Record dates, freeze the spec, hand over</a>'+
+    '<div class="ev" style="grid-column:8;grid-row:2"><span class="e" aria-hidden="true"></span><span>Order confirmed → 3.3 Production</span></div>'+
+  '</div></div><span class="note">○ start · ◇ decision · ◉ end · dashed box = outside party</span></section>'+
+  '<section class="panel"><h2>Inputs and outputs</h2><div class="facts" style="grid-template-columns:repeat(auto-fill,minmax(170px,1fr))"><div><div class="k eyebrow" style="letter-spacing:0;text-transform:none">Comes from</div>Cath (signed contract) · Demand to plan (quantities) · Insight to launch (frozen specification)</div><div><div class="eyebrow" style="letter-spacing:0;text-transform:none">Needs</div>Signed PO and contract · NOS size list</div><div><div class="eyebrow" style="letter-spacing:0;text-transform:none">Delivers</div>Confirmed lines and ship dates in the tracker</div><div><div class="eyebrow" style="letter-spacing:0;text-transform:none">Goes to</div>Isabel (stock plan) · Kiki (warehouse) · 3.3 Production · supplier scorecard</div></div></section>'+
+  '<section class="panel"><div class="ph"><h2>Who does what</h2><span>R does it · A approves · C consulted · I informed</span></div><div class="flow-box"><div style="min-width:640px"><div class="row c-mx h"><span>Step</span><span class="ctr">Coordinator</span><span class="ctr">Cath</span><span class="ctr">Supplier</span><span class="ctr">Isabel</span><span class="ctr">Kiki</span></div>'+mx+'</div></div></section>'+
+  '<section style="display:flex;flex-direction:column;gap:8px"><h2 style="font-size:18px">Change log</h2><div style="font-size:13px;color:var(--ink-2);display:grid;grid-template-columns:60px 110px minmax(0,1fr);gap:6px 12px"><b>0.9</b><span>October 2026</span><span>First version for review</span></div></section>'+
+  '</article>';
+};
+V.step = function(i){
+  var a = ACTS[i];
+  var pills = ACTS.map(function(x,j){return '<a class="sp'+(j===i?' on':'')+'" href="#/step/'+(j+1)+'"'+(j===i?' aria-current="page"':'')+'>'+(j+1)+'. '+esc(x.short)+'</a>';}).join('');
+  var prev = i>0 ? '<a class="nb" href="#/step/'+i+'">← Previous step</a>' : '<span class="nb dis">← Previous step</span>';
+  var next = i<ACTS.length-1 ? '<a class="nb pri" href="#/step/'+(i+2)+'">Next step →</a>' : '<a class="nb pri" href="#/confirm-po">Back to the process →</a>';
+  return '<article style="display:flex;flex-direction:column;gap:20px"><div class="pills">'+pills+'</div>'+
+  '<div class="head"><span class="eyebrow">Level 4 · '+a.code+' · Work instruction</span><h1 style="font-size:30px">'+esc(a.title)+'</h1></div>'+
+  '<div class="facts"><div class="fact"><div class="k">Who</div><div class="v">'+esc(a.who)+'</div></div><div class="fact"><div class="k">When</div><div class="v">'+esc(a.when)+'</div></div><div class="fact"><div class="k">Time</div><div class="v">'+esc(a.time)+'</div></div><div class="fact"><div class="k">Tools</div><div class="v">'+esc(a.tools)+'</div></div></div>'+
+  '<section class="panel"><h2>Steps</h2><ol class="steps">'+a.steps.map(function(s){return '<li><span>'+esc(s)+'</span></li>';}).join('')+'</ol></section>'+
+  '<div class="boxes"><div class="bx done"><div class="k">Done when</div><div>'+esc(a.done)+'</div></div><div class="bx"><div class="k">Rules</div><div>'+esc(a.rules)+'</div></div><div class="bx why"><div class="k">Why it matters</div><div>'+esc(a.why)+'</div></div><div class="bx"><div class="k">Common mistake</div><div>'+esc(a.mistake)+'</div></div></div>'+
+  '<div class="nav">'+prev+'<a class="nb" href="#/confirm-po">Back to the flow</a>'+next+'</div>'+
+  '<p class="note">Thresholds are reviewed after the first two orders and adjusted in the monthly S&amp;OP.</p></article>';
+};
+V.raci = function(){
+  var r=0,a=0,t=0; RACI.forEach(function(g){g.rows.forEach(function(x){if(x[1]==='C')return; t++; if(x[1]==='F')r++; if(x[2]==='F')a++;});});
+  var groups = RACI.map(function(g){
+    var link = g.href ? '<a class="btn live" href="'+g.href+'">Open '+esc(g.where)+' →</a>' : '<span class="btn off">'+esc(g.where)+' · not mapped yet</span>';
+    var rows = g.rows.map(function(x){return '<div class="row c-raci"><span>'+esc(x[0])+'</span><span>'+chip(x[1])+'</span><span>'+chip(x[2])+'</span><span>'+nextR(x[1])+'</span><span style="color:var(--ink-2);font-size:13px">'+esc(x[3])+'</span></div>';}).join('');
+    return '<div class="tbl"><div class="in"><div class="grp-h"><h3>'+esc(g.phase)+'</h3>'+link+'</div><div class="row h c-raci" style="border-top:0"><span>Task</span><span>Does it</span><span>Approves</span><span>From 2027</span><span>When</span></div>'+rows+'</div></div>';
+  }).join('');
+  return '<div class="head"><span class="eyebrow">Roles</span><h1>Who does what in production</h1><p class="lead">The task split for every order, from development to stock. Cath creates and approves; Kiki runs operations and coordination. From 2027 the coordination tasks move to the production coordinator, and Cath keeps product, approval and supplier relationships.</p></div>'+
+  '<div class="meta" style="align-items:center"><span>'+chip('F')+' Founder: creation and approval</span><span>'+chip('K')+' Operations and coordination</span><span>'+chip('C')+' Production coordinator, from Q1 2027</span><span style="color:var(--muted)">Today Cath does '+r+' of '+t+' tasks herself and approves '+a+'.</span></div>'+groups;
+};
+
+/* ---------- tree ---------- */
+function tree(route){
+  var h='<span class="lbl">Value streams</span>';
+  function lk(label,href,depth,on){return '<a class="ti'+(on?' on':'')+'" style="padding-left:'+(10+depth*14)+'px" href="'+href+'"'+(on?' aria-current="page"':'')+'>'+esc(label)+'</a>';}
+  function off(label,depth){return '<span class="ti" style="padding-left:'+(10+depth*14)+'px">'+esc(label)+'</span>';}
+  h+=lk('Overview','#/',0,route.v==='home');
+  L1.forEach(function(a){
+    if(!a.live){h+=off(a.n+'  '+a.name,0);return;}
+    h+=lk(a.n+'  '+a.name,a.href,0,route.v==='s2s');
+    L2.forEach(function(p){
+      if(!p.live){h+=off(p.code+'  '+p.name,1);return;}
+      h+=lk(p.code+'  '+p.name,p.href,1,route.v==='order');
+      h+=lk('3.1.6  Confirm the PO','#/confirm-po',2,route.v==='po');
+      ACTS.forEach(function(x,i){h+=lk((i+1)+'. '+x.short,'#/step/'+(i+1),3,route.v==='step'&&route.i===i);});
+    });
+  });
+  h+='<hr>'+lk('Who does what','#/raci',0,route.v==='raci');
+  h+='<div class="legend"><span><i class="sw" style="background:var(--plum)"></i>Mapped: open it</span><span><i class="sw" style="background:var(--line)"></i>Listed, not mapped yet</span></div>';
+  return h;
+}
+function crumbs(route){
+  var c=[['Process Atlas','#/']];
+  if(route.v==='raci') c.push(['Who does what']);
+  if(['s2s','order','po','step'].indexOf(route.v)>-1) c.push(['3 Source to stock','#/source-to-stock']);
+  if(['order','po','step'].indexOf(route.v)>-1) c.push(['3.1 Order','#/order']);
+  if(['po','step'].indexOf(route.v)>-1) c.push(['3.1.6 Confirm the purchase order','#/confirm-po']);
+  if(route.v==='step') c.push([ACTS[route.i].code+' '+ACTS[route.i].short]);
+  return '<nav class="crumbs" aria-label="Breadcrumb">'+c.map(function(x,i){return i===c.length-1?'<span class="cur">'+esc(x[0])+'</span>':'<a href="'+x[1]+'">'+esc(x[0])+'</a><span class="sl" aria-hidden="true">/</span>';}).join('')+'</nav>';
+}
+var GOV = '<div class="gov"><span><b>Owner</b> Production coordinator</span><span><b>Approver</b> Cath</span><span><b>Kept current by</b> checking every logged exception against the step it broke</span><a class="nb pri" style="min-height:40px" href="mailto:?subject=Process%20Atlas%20change%20request&body=Process%20or%20step%3A%0AWhat%20should%20change%3A%0AWhy%3A">Suggest a change</a></div>';
+
+/* ---------- router ---------- */
+function parse(){
+  var h=(location.hash||'#/').slice(1);
+  if(h==='/source-to-stock') return {v:'s2s'};
+  if(h==='/order') return {v:'order'};
+  if(h==='/confirm-po') return {v:'po'};
+  if(h==='/raci') return {v:'raci'};
+  var m=h.match(/^\/step\/(\d)$/); if(m){var i=+m[1]-1; if(i>=0&&i<ACTS.length) return {v:'step',i:i};}
+  return {v:'home'};
+}
+function render(){
+  var r=parse(), body;
+  if(r.v==='s2s') body=V.s2s(); else if(r.v==='order') body=V.order(); else if(r.v==='po') body=V.po(); else if(r.v==='step') body=V.step(r.i); else if(r.v==='raci') body=V.raci(); else body=V.home();
+  var gov = (r.v==='po'||r.v==='step') ? GOV : '';
+  document.getElementById('main').innerHTML = crumbs(r)+body+gov+'<p class="foot">Coco &amp; Cici Process Atlas · version 0.9 · October 2026 · internal</p>';
+  document.getElementById('side').innerHTML = tree(r);
+  document.getElementById('tab-map').classList.toggle('on', r.v!=='raci');
+  document.getElementById('tab-raci').classList.toggle('on', r.v==='raci');
+  var titles={home:'',s2s:'Source to stock · ',order:'Order · ',po:'Confirm the purchase order · ',raci:'Who does what · ',step:''};
+  document.title=(r.v==='step'?ACTS[r.i].title+' · ':titles[r.v])+'Coco & Cici Process Atlas';
+  window.scrollTo(0,0);
+}
+window.addEventListener('hashchange',render);
+render();
+
+/* ---------- search ---------- */
+var IDX=[];
+L1.forEach(function(a){IDX.push({t:a.n+' '+a.name,s:a.desc,h:a.href||null});});
+L2.forEach(function(p){IDX.push({t:p.code+' '+p.name,s:p.desc,h:p.href||null});});
+L3.forEach(function(p){IDX.push({t:p.code+' '+p.name,s:'Process in 3.1 Order',h:p.href||'#/order'});});
+ACTS.forEach(function(a,i){IDX.push({t:a.code+' '+a.title,s:a.steps.join(' '),h:'#/step/'+(i+1)});});
+RACI.forEach(function(g){g.rows.forEach(function(x){IDX.push({t:x[0],s:'Task · '+g.phase,h:'#/raci'});});});
+var q=document.getElementById('q'), res=document.getElementById('results');
+q.addEventListener('input',function(){
+  var v=q.value.trim().toLowerCase();
+  if(v.length<2){res.classList.remove('show');res.innerHTML='';return;}
+  var hits=IDX.filter(function(x){return (x.t+' '+x.s).toLowerCase().indexOf(v)>-1;}).slice(0,10);
+  res.innerHTML = hits.length ? hits.map(function(x){return x.h?'<a href="'+x.h+'">'+esc(x.t)+'</a>':'<div class="none">'+esc(x.t)+' · not mapped yet</div>';}).join('') : '<div class="none">No match</div>';
+  res.classList.add('show');
+});
+res.addEventListener('click',function(){res.classList.remove('show');q.value='';});
+document.addEventListener('click',function(e){if(!e.target.closest('.search'))res.classList.remove('show');});
+q.addEventListener('keydown',function(e){if(e.key==='Escape'){res.classList.remove('show');q.blur();}});
+})();
+</script>
+</body>
+</html>
