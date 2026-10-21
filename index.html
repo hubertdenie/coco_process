@@ -5,7 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
 <title>Coco &amp; Cici Process Atlas</title>
-<link rel="icon" href="assets/logo.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Lora:wght@500;600&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
@@ -28,7 +27,7 @@ h1,h2,h3{font-family:var(--serif);font-weight:600;margin:0;line-height:1.2}
 .top{background:var(--card);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:5}
 .top-in{max-width:1320px;margin:0 auto;padding:12px 24px;display:flex;flex-wrap:wrap;align-items:center;gap:12px 24px}
 .brand{display:flex;align-items:center;gap:14px;text-decoration:none;min-height:44px}
-.brand img{height:24px;width:auto;display:block}
+.brand svg{height:28px;width:auto;display:block}
 .brand .sep{width:1px;height:24px;background:var(--line)}
 .brand .name{font-family:var(--serif);font-size:19px;font-weight:600;color:var(--plum)}
 .tabs{display:flex;gap:4px;flex-wrap:wrap}
@@ -172,14 +171,18 @@ ol.steps li span{padding-top:2px}
 .gov b{font-weight:600}
 .gov a{margin-left:auto}
 .foot{margin:8px 0 0;font-size:12px;color:var(--muted);border-top:1px solid var(--line);padding-top:14px}
-@media (max-width:700px){.wrap{padding:16px}.head h1{font-size:26px}.side{max-width:none}.top-in{padding:10px 16px}}
+@media (max-width:700px){.wrap{padding:16px}.head h1{font-size:26px}.top-in{padding:10px 16px}}
 </style>
 </head>
 <body>
 <header class="top">
   <div class="top-in">
     <a class="brand" href="#/" aria-label="Coco &amp; Cici Process Atlas, home">
-      <img src="assets/logo.svg" alt="Coco &amp; Cici">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 40" aria-label="Coco &amp; Cici Logo">
+        <text x="0" y="28" font-family="'Lora', Georgia, serif" font-size="28px" fill="#6F353F" font-weight="500" letter-spacing="1px">
+          COCO <tspan fill="#A8C2E8" font-style="italic" font-family="serif">&amp;</tspan> cici
+        </text>
+      </svg>
       <span class="sep" aria-hidden="true"></span>
       <span class="name">Process Atlas</span>
     </a>
